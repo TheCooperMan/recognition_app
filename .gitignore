@@ -3,4 +3,4 @@ test.py
 .vscode/
 venv/
 app/__pycache__/
-.gitignore/
+.gitignore
