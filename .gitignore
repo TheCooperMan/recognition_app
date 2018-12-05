@@ -1,0 +1,6 @@
+python-speech-recognition/
+test.py
+.vscode/
+venv/
+app/__pycache__/
+.gitignore/
