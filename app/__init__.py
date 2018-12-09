@@ -1,3 +1,6 @@
+import speech_recognition as sr 
+r = sr.Recognizer()
+
 import os
 from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
 from config import Config
@@ -29,12 +32,15 @@ class UploadForm(FlaskForm):
 @app.route('/', methods=['GET', 'POST'])
 def upload():
     form = UploadForm(csrf_enabled=False)
-    print(form.validate_on_submit())
 
     if form.validate_on_submit():
         f = form.uploadfile.data
         filename = secure_filename(f.filename)
         f.save(os.path.join(UPLOAD_FOLDER, filename))
-        return redirect(url_for('upload'))
+        harvard = sr.AudioFile(os.path.join(UPLOAD_FOLDER, filename))
+        with harvard as source:
+            audio = r.record(source)
+            text = r.recognize_google(audio, language='fr-FR')
+        return render_template('index.html', form=form, test_ok = True, content_text = text)
 
     return render_template('index.html', form=form)

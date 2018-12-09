@@ -13,9 +13,14 @@
   </head>
   <body>
     <h1>Upload new File</h1>
-    <form method="POST" action="/" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
       {{ form.uploadfile }}
-      {{ form.submit }}   
+      {{ form.submit }}
+      {% if test_ok %}
+          <p>{{ content_text }}</p>
+      {% else %}
+          <p>Narutoooo</p>
+      {% endif %} 
     </form>
   </body>
 </html
